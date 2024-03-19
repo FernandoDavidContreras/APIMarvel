@@ -36,6 +36,9 @@ def get_comics():
     if "data" in data and "results" in data["data"]:
         canvas = tk.Canvas(ventana_comics)
         canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        scrollbar = ttk.Scrollbar(ventana_comics, orient=tk.VERTICAL, command=canvas.yview)
+        scrollbar.pack(side=tk.BOTTOM, fill=tk.Y)
+        canvas.configure(yscrollcommand=scrollbar.set)
 
         scrollbar = ttk.Scrollbar(ventana_comics, orient=tk.HORIZONTAL, command=canvas.xview)
         scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
@@ -100,6 +103,7 @@ def get_comics():
                             width=18, height=2, bd=12)
     boton_salir.pack(pady=5)
 
+
 def buscar_comic_por_nombre(nombre):
     response = req.get(urlcomics, params={
         "apikey": public_key,
@@ -114,6 +118,7 @@ def buscar_comic_por_nombre(nombre):
         return data["data"]["results"]
     else:
         return None
+
 
 def buscar_comic_por_fecha(fecha):
     year = fecha.split("-")[0]
@@ -130,6 +135,7 @@ def buscar_comic_por_fecha(fecha):
         return data["data"]["results"]
     else:
         return None
+
 
 def buscar_comic():
     ventana_buscar = tk.Toplevel()
@@ -160,6 +166,7 @@ def buscar_comic():
     boton_buscar = tk.Button(ventana_buscar, text="Buscar", command=buscar)
     boton_buscar.pack(pady=5)
 
+
 def mostrar_resultados(resultados):
     ventana_resultados = tk.Toplevel()
     ventana_resultados.title("Resultados de la búsqueda")
@@ -167,6 +174,9 @@ def mostrar_resultados(resultados):
 
     canvas = tk.Canvas(ventana_resultados)
     canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+    scrollbar = ttk.Scrollbar(ventana_resultados, orient=tk.VERTICAL, command=canvas.yview)
+    scrollbar.pack(side=tk.BOTTOM, fill=tk.Y)
+    canvas.configure(yscrollcommand=scrollbar.set)
 
     scrollbar = ttk.Scrollbar(ventana_resultados, orient=tk.HORIZONTAL, command=canvas.xview)
     scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
@@ -226,10 +236,9 @@ def mostrar_resultados(resultados):
     frame_resultados.update_idletasks()
     canvas.config(scrollregion=canvas.bbox("all"))
 
+
 def comic_detalle():
     buscar_comic()
-
-
 
 
 def comic_area():
@@ -241,7 +250,8 @@ def comic_area():
     botonc = tk.Button(ventana3, text=" Listado de comics ", command=get_comics, font=("Comic Sans MS", 18), bg="Azure",
                        fg="black", width=18, height=2, bd=12)
     botonc.pack(pady=5)
-    botonl = tk.Button(ventana3, text=" Detalles de un comic ",command=comic_detalle, font=("Comic Sans MS", 18), bg="Azure",
+    botonl = tk.Button(ventana3, text=" Detalles de un comic ", command=comic_detalle, font=("Comic Sans MS", 18),
+                       bg="Azure",
                        fg="black", width=18, height=2, bd=12)
     botonl.pack(pady=5)
 
@@ -270,6 +280,9 @@ def get_personaje():
     if "data" in data and "results" in data["data"]:
         canvas = tk.Canvas(ventana_personajes)
         canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        scrollbar = ttk.Scrollbar(ventana_personajes, orient=tk.VERTICAL, command=canvas.yview)
+        scrollbar.pack(side=tk.BOTTOM, fill=tk.Y)
+        canvas.configure(yscrollcommand=scrollbar.set)
 
         scrollbar = ttk.Scrollbar(ventana_personajes, orient=tk.HORIZONTAL, command=canvas.xview)
         scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
@@ -331,6 +344,7 @@ def get_personaje():
                             width=18, height=2, bd=12)
     boton_salir.pack(pady=5)
 
+
 def buscar_personaje_por_nombre(nombre):
     response = req.get("http://gateway.marvel.com/v1/public/characters", params={
         "apikey": public_key,
@@ -345,6 +359,7 @@ def buscar_personaje_por_nombre(nombre):
         return data["data"]["results"]
     else:
         return None
+
 
 def buscar_personaje():
     ventana_buscar = tk.Toplevel()
@@ -367,6 +382,7 @@ def buscar_personaje():
     boton_buscar = tk.Button(ventana_buscar, text="Buscar", command=buscar)
     boton_buscar.pack(pady=5)
 
+
 def mostrar_resultados_personajes(resultados):
     ventana_resultados = tk.Toplevel()
     ventana_resultados.title("Resultados de la búsqueda")
@@ -375,9 +391,14 @@ def mostrar_resultados_personajes(resultados):
     canvas = tk.Canvas(ventana_resultados)
     canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
+    scrollbar = ttk.Scrollbar(ventana_resultados, orient=tk.VERTICAL, command=canvas.yview)
+    scrollbar.pack(side=tk.BOTTOM, fill=tk.Y)
+    canvas.configure(yscrollcommand=scrollbar.set)
+
     scrollbar = ttk.Scrollbar(ventana_resultados, orient=tk.HORIZONTAL, command=canvas.xview)
     scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
     canvas.configure(xscrollcommand=scrollbar.set)
+
 
     frame_resultados = tk.Frame(canvas)
     canvas.create_window((0, 0), window=frame_resultados, anchor=tk.NW)
@@ -430,6 +451,7 @@ def mostrar_resultados_personajes(resultados):
     frame_resultados.update_idletasks()
     canvas.config(scrollregion=canvas.bbox("all"))
 
+
 def personaje_detalle():
     buscar_personaje()
 
@@ -444,7 +466,8 @@ def personaje_area():
                        bg="Azure",
                        fg="black", width=18, height=2, bd=12)
     botonc.pack(pady=5)
-    botonl = tk.Button(ventana4, text=" Detalles de un personaje ",command=personaje_detalle, font=("Comic Sans MS", 18), bg="Azure",
+    botonl = tk.Button(ventana4, text=" Detalles de un personaje ", command=personaje_detalle,
+                       font=("Comic Sans MS", 18), bg="Azure",
                        fg="black", width=18, height=2, bd=12)
     botonl.pack(pady=5)
 
