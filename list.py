@@ -91,7 +91,7 @@ class Lista:
     def search_by_ID_comic(self, data: int):
         current = self.head
         while current is not None:
-            if isinstance(current.data, Comic) and current.data.id == data:
+            if isinstance(current.data, Comic) and current.data.isbn == data:
                 return current
             else:
                 current = current.next
@@ -125,10 +125,10 @@ class Lista:
                     return None
         return None
 
-    def deleate_by_ID_comic(self, data: int):
+    def deleate_by_ID_comic(self, data):
         current = self.head
         while current is not None:
-            if isinstance(current.data, Comic) and current.data.id == data:
+            if isinstance(current.data, Comic) and current.data.isbn == data:
                 if current is self.head:
                     return self.shift()
                 elif current is self.tail:
